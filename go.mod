@@ -2,7 +2,7 @@ module github.com/quiqupltd/oauth2-mongo
 
 replace gopkg.in/go-oauth2/mongo.v3 => github.com/quiqupltd/oauth2-mongo v0.0.0
 
-go 1.23
+go 1.22
 
 require (
 	github.com/go-oauth2/oauth2/v4 v4.5.2
