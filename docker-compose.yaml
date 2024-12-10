@@ -1,0 +1,39 @@
+services:
+  mongo1:
+    image: mongo:8
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_DATABASE: oauth2
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    # volumes:
+    #   - mongo1_data:/data/db
+    #   - mongo1_config:/data/configdb
+
+  # mongo2:
+  #   image: mongo:8
+  #   command: ['--replSet', 'rs0', '--bind_ip_all', '--port', '27018']
+  #   ports:
+  #     - 27018:27018
+  #   environment:
+  #     MONGO_INITDB_DATABASE: oauth2
+  #     MONGO_INITDB_ROOT_USERNAME: admin
+  #     MONGO_INITDB_ROOT_PASSWORD: password
+  #   extra_hosts:
+  #     - host.docker:172.17.0.1
+  #   healthcheck:
+  #     test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'host.docker:27018'}]}) }" | mongosh --port 27018 --quiet
+  #     interval: 5s
+  #     timeout: 30s
+  #     start_period: 0s
+  #     start_interval: 1s
+  #     retries: 30
+  # volumes:
+  #   - mongo2_data:/data/db
+  #   - mongo2_config:/data/configdb
+# volumes:
+#   mongo1_data: {}
+#   mongo1_config: {}
+#   mongo2_data: {}
+#   mongo2_config: {}

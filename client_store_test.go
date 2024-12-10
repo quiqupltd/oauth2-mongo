@@ -2,6 +2,7 @@ package mongo
 
 import (
 	"context"
+	"fmt"
 	"testing"
 
 	"github.com/go-oauth2/oauth2/v4/models"
@@ -11,14 +12,12 @@ import (
 // shut down the database, test should fail within a second
 func TestClientStoreWithTimeout(t *testing.T) {
 
+	fmt.Println("Replica set is", isReplicaSet)
+
 	storeConfig := NewStoreConfig(1, 1)
 
 	var store *ClientStore
-	if !isReplicaSet {
-		store = NewClientStore(NewConfigNonReplicaSet(url, dbName, username, password, service), storeConfig)
-	} else {
-		store = NewClientStore(NewConfigReplicaSet(url, dbName), storeConfig)
-	}
+	store = NewClientStore(NewConfig(url, dbName, username, password, service, isReplicaSet), storeConfig)
 
 	client := &models.Client{
 		ID:     "id",
@@ -79,11 +78,7 @@ func TestClientStoreWithTimeout(t *testing.T) {
 
 func TestClientStore(t *testing.T) {
 	var store *ClientStore
-	if !isReplicaSet {
-		store = NewClientStore(NewConfigNonReplicaSet(url, dbName, username, password, service))
-	} else {
-		store = NewClientStore(NewConfigReplicaSet(url, dbName))
-	}
+	store = NewClientStore(NewConfig(url, dbName, username, password, service, isReplicaSet))
 
 	client := &models.Client{
 		ID:     "id",

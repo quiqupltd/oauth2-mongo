@@ -102,7 +102,7 @@ func NewClientStore(cfg *Config, scfgs ...*StoreConfig) *ClientStore {
 		clientOptions.SetConnectTimeout(time.Duration(scfgs[0].requestTimeout) * time.Second)
 	}
 
-	if !cfg.IsReplicaSet {
+	if cfg.Username != "" && cfg.Password != "" {
 		clientOptions.SetAuth(options.Credential{
 			Username: cfg.Username,
 			Password: cfg.Password,
