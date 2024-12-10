@@ -1,6 +1,6 @@
-module github.com/quiqupltd/oauth2-mongo.v3
+module github.com/quiqupltd/oauth2-mongo
 
-replace gopkg.in/go-oauth2/mongo.v3 => github.com/quiqupltd/oauth2-mongo.v3 v0.0.0
+replace gopkg.in/go-oauth2/mongo.v3 => github.com/quiqupltd/oauth2-mongo v0.0.0
 
 go 1.23
 
