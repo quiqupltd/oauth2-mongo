@@ -59,7 +59,7 @@ func NewTokenStore(cfg *Config, scfgs ...*StoreConfig) (store *TokenStore) {
 		clientOptions.SetConnectTimeout(time.Duration(scfgs[0].requestTimeout) * time.Second)
 	}
 
-	if !cfg.IsReplicaSet {
+	if cfg.Username != "" && cfg.Password != "" {
 		clientOptions.SetAuth(options.Credential{
 			Username: cfg.Username,
 			Password: cfg.Password,
