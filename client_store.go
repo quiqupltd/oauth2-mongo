@@ -164,8 +164,13 @@ func (cs *ClientStore) c(name string) *mongo.Collection {
 	return cs.client.Database(cs.ccfg.storeConfig.db).Collection(name)
 }
 
+type ClientInfoWithName interface {
+	oauth2.ClientInfo
+	GetName() string
+}
+
 // Create create client information
-func (cs *ClientStore) Create(info oauth2.ClientInfo) (err error) {
+func (cs *ClientStore) Create(info ClientInfoWithName) (err error) {
 	ctx := context.Background()
 
 	ctxReq, cancel := cs.ccfg.storeConfig.setRequestContext()
@@ -179,6 +184,7 @@ func (cs *ClientStore) Create(info oauth2.ClientInfo) (err error) {
 		Secret: info.GetSecret(),
 		Domain: info.GetDomain(),
 		UserID: info.GetUserID(),
+		Name:   info.GetName(),
 	}
 
 	collection := cs.c(cs.ccfg.ClientsCName)
@@ -248,4 +254,5 @@ type client struct {
 	Secret string `bson:"secret"`
 	Domain string `bson:"domain"`
 	UserID string `bson:"userid"`
+	Name   string `bson:"name"`
 }
