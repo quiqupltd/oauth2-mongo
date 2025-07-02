@@ -180,11 +180,12 @@ func (cs *ClientStore) Create(info ClientInfoWithName) (err error) {
 	}
 
 	entity := &client{
-		ID:     info.GetID(),
-		Secret: info.GetSecret(),
-		Domain: info.GetDomain(),
-		UserID: info.GetUserID(),
-		Name:   info.GetName(),
+		ID:        info.GetID(),
+		Secret:    info.GetSecret(),
+		Domain:    info.GetDomain(),
+		UserID:    info.GetUserID(),
+		Name:      info.GetName(),
+		CreatedAt: time.Now(),
 	}
 
 	collection := cs.c(cs.ccfg.ClientsCName)
@@ -250,9 +251,10 @@ func (cs *ClientStore) RemoveByID(id string) (err error) {
 }
 
 type client struct {
-	ID     string `bson:"_id"`
-	Secret string `bson:"secret"`
-	Domain string `bson:"domain"`
-	UserID string `bson:"userid"`
-	Name   string `bson:"name"`
+	ID        string    `bson:"_id"`
+	Secret    string    `bson:"secret"`
+	Domain    string    `bson:"domain"`
+	UserID    string    `bson:"userid"`
+	Name      string    `bson:"name"`
+	CreatedAt time.Time `bson:"created_at"`
 }
